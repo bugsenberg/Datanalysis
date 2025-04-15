@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Análise de Cancelamentos</title>
+    <style>
+        /* Estilos para o layout */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #4e54c8, #8f94fb); /* Gradiente moderno */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+        }
+
+        .container {
+            width: 60%;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #4CAF50; /* Cor verde */
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .explicacao {
+            font-size: 18px;
+            margin-bottom: 20px;
+            text-align: justify; /* Justifica o texto */
+            line-height: 1.6;
+            color: #333; /* Cor de texto escura para contraste */
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 16px;
+            margin-right: 10px;
+            color: #333;
+        }
+
+        select {
+            font-size: 16px;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            background-color: #f8f8f8;
+            width: 250px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049; /* Efeito hover para o botão */
+        }
+
+        .grafico {
+            max-width: 80%; /* Gráfico menor */
+            margin-top: 30px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Análise de Cancelamentos</h1>
+
+        <!-- Explicação sobre como escolher as variáveis -->
+        <p class="explicacao">
+            Selecione as variáveis que deseja analisar. Escolha uma variável para o eixo X e outra para a cor do gráfico. Após a seleção, o gráfico será gerado automaticamente.
+        </p>
+
+        <!-- Formulário para o usuário escolher as variáveis -->
+        <form method="POST">
+            <label for="x_variable">Escolha a variável para o eixo X:</label>
+            <select name="x_variable" id="x_variable">
+                {% for coluna in colunas %}
+                    <option value="{{ coluna }}">{{ coluna }}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+
+            <label for="color_variable">Escolha a variável para a cor:</label>
+            <select name="color_variable" id="color_variable">
+                {% for coluna in colunas %}
+                    <option value="{{ coluna }}">{{ coluna }}</option>
+                {% endfor %}
+            </select>
+            <br><br>
+
+            <button type="submit">Gerar Gráfico</button>
+        </form>
+
+        <!-- Exibe o gráfico gerado -->
+        {% if grafico %}
+            <div>
+                <div class="grafico">
+                    {{ grafico|safe }}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
